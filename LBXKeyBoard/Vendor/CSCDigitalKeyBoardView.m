@@ -89,6 +89,25 @@
             
             [btn addTarget:self action:@selector(btnAction:) forControlEvents:UIControlEventTouchUpInside];
             
+            if ([strTitle isEqualToString:@"·"] || [strTitle isEqualToString:@"Del"] )
+            {
+                btn.backgroundColor = [UIColor colorWithRed:209./255 green:212./255. blue:215./255. alpha:0.9];
+            }
+            
+            if ([strTitle isEqualToString:@"Del"])
+            {
+                
+                UIImage *img = [UIImage imageNamed:@"CSCKeyBoard.bundle/CSC_keyboard_back"];
+                
+                UIImage *src = [self createImageWithColor:btn.backgroundColor size:btn.frame.size];
+                
+                img = [self addImageLogo:src centerLogoImage:img logoSize:img.size];
+                
+                [btn setBackgroundImage:img forState:UIControlStateNormal];
+                
+                [btn setTitle:@"" forState:UIControlStateNormal];
+            }
+            
             [self addSubview:btn];
             
             
@@ -96,6 +115,30 @@
     }
     
     self.backgroundColor = [UIColor clearColor];
+}
+
+- (UIImage*) createImageWithColor: (UIColor*) color size:(CGSize)size
+{
+    CGRect rect=CGRectMake(0.0f, 0.0f, size.width, size.height);
+    UIGraphicsBeginImageContext(rect.size);
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    CGContextSetFillColorWithColor(context, [color CGColor]);
+    CGContextFillRect(context, rect);
+    UIImage *theImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return theImage;
+}
+
+- (UIImage*)addImageLogo:(UIImage*)srcImg centerLogoImage:(UIImage*)LogoImage logoSize:(CGSize)logoSize
+{
+    UIGraphicsBeginImageContext(srcImg.size);
+    [srcImg drawInRect:CGRectMake(0, 0, srcImg.size.width, srcImg.size.height)];
+    
+    CGRect rect = CGRectMake(srcImg.size.width/2 - logoSize.width/2, srcImg.size.height/2-logoSize.height/2, logoSize.width, logoSize.height);
+    [LogoImage drawInRect:rect];
+    UIImage *resultingImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return resultingImage;
 }
 
 - (void)btnAction:(CSCKeyBoardButton*)btn

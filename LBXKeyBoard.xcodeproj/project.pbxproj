@@ -16,6 +16,7 @@
 		48C178C41C1021B700D70E34 /* CSCDigitalKeyBoardView.m in Sources */ = {isa = PBXBuildFile; fileRef = 48C178C31C1021B700D70E34 /* CSCDigitalKeyBoardView.m */; };
 		48C178C71C1025D200D70E34 /* CSCKeyBoardButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 48C178C61C1025D200D70E34 /* CSCKeyBoardButton.m */; };
 		48C178CA1C10326300D70E34 /* CSCKeyBoardView.m in Sources */ = {isa = PBXBuildFile; fileRef = 48C178C91C10326300D70E34 /* CSCKeyBoardView.m */; };
+		48C178CC1C1033A700D70E34 /* CSCKeyBoard.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 48C178CB1C1033A700D70E34 /* CSCKeyBoard.bundle */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,6 +36,7 @@
 		48C178C61C1025D200D70E34 /* CSCKeyBoardButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSCKeyBoardButton.m; sourceTree = "<group>"; };
 		48C178C81C10326300D70E34 /* CSCKeyBoardView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSCKeyBoardView.h; sourceTree = "<group>"; };
 		48C178C91C10326300D70E34 /* CSCKeyBoardView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSCKeyBoardView.m; sourceTree = "<group>"; };
+		48C178CB1C1033A700D70E34 /* CSCKeyBoard.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = CSCKeyBoard.bundle; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -92,6 +94,7 @@
 		48C178C11C10208900D70E34 /* Vendor */ = {
 			isa = PBXGroup;
 			children = (
+				48C178CB1C1033A700D70E34 /* CSCKeyBoard.bundle */,
 				48C178C21C1021B700D70E34 /* CSCDigitalKeyBoardView.h */,
 				48C178C31C1021B700D70E34 /* CSCDigitalKeyBoardView.m */,
 				48C178C51C1025D200D70E34 /* CSCKeyBoardButton.h */,
@@ -159,6 +162,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				48C178CC1C1033A700D70E34 /* CSCKeyBoard.bundle in Resources */,
 				48C178BA1C10200800D70E34 /* LaunchScreen.storyboard in Resources */,
 				48C178B71C10200800D70E34 /* Assets.xcassets in Resources */,
 				48C178B51C10200800D70E34 /* Main.storyboard in Resources */,
