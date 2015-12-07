@@ -10,9 +10,15 @@
 
 @interface CSCKeyBoardButton : UIButton
 
+/**
+ @brief  描述文字
+ */
 @property (nonatomic, strong) NSString* str;
 
-
+/**
+ @brief  按下颜色
+ */
+@property (nonatomic, strong) UIColor* touchDownColor;
 
 
 @end

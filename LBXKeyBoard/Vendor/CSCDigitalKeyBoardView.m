@@ -9,40 +9,93 @@
 #import "CSCDigitalKeyBoardView.h"
 #import "CSCKeyBoardButton.h"
 
+
+
+@interface CSCDigitalKeyBoardView()
+{
+    CGFloat topTitleH;
+    CGFloat keyboardH;
+}
+@property (nonatomic, weak) UITextField *responder;
+@end
+
 @implementation CSCDigitalKeyBoardView
 
 
-- (id)init
+//- (id)init
+//{
+//    if (self = [super init])
+//    {
+//         [self __initWithFrame:CGRectZero];
+//    }
+//    
+//    return self;
+//}
+
+
+- (id)initWithBoardViewHead:(BOOL)needBoardHead
 {
+    if (needBoardHead) {
+        topTitleH = 44.0;
+    }
     if (self = [super init])
     {
-        
+        [self __initWithFrame:CGRectZero];
     }
-    
     return self;
 }
 
 - (id)initWithFrame:(CGRect)frame
 {
-    if ( CGRectEqualToRect(CGRectZero,frame) )
-    {
-        CGRect screenBounds = [UIScreen mainScreen].bounds;
-        
-        frame = CGRectMake(0, screenBounds.size.height - 216, screenBounds.size.width, 216);
-    }
-    
     if (self = [super initWithFrame:frame] )
     {
-        [self __initButtons];
+        [self __initWithFrame:CGRectZero];
     }
     
     return self;
 }
 
+- (void)__initWithFrame:(CGRect)frame
+{
+    keyboardH = 216;
+    
+    if ( CGRectEqualToRect(CGRectZero,frame) )
+    {
+        CGRect screenBounds = [UIScreen mainScreen].bounds;
+        
+        frame = CGRectMake(0, screenBounds.size.height - keyboardH - topTitleH, screenBounds.size.width, keyboardH + topTitleH);
+    }
+    
+    self.frame = frame;
+    
+    [self __initButtons];
+}
+
 - (void)__initButtons
 {
+    self.backgroundColor = [UIColor colorWithRed:200/255. green:200/255. blue:200/255. alpha:1.0];
+    
+    UIView *topView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.frame), topTitleH+1)];
+    [self addSubview:topView];
+    topView.backgroundColor = [UIColor colorWithRed:247/255. green:247/255. blue:247/255. alpha:1.0];
+    
+    UIView *line = [[UIView alloc]initWithFrame:CGRectMake(0, 0, CGRectGetWidth(topView.frame), 1)];
+    [topView addSubview:line];
+    line.backgroundColor = self.backgroundColor;
+    
+    
+    if (topTitleH > 0.0 )
+    {
+        UIButton *returnBtn = [[UIButton alloc]initWithFrame:CGRectMake(CGRectGetMaxX(topView.frame) - 60, 0, 60, CGRectGetHeight(topView.frame))];
+        [returnBtn setTitle:@"完成" forState:UIControlStateNormal];
+        [returnBtn setTitleColor:[UIColor greenColor] forState:UIControlStateNormal];
+        [topView addSubview:returnBtn];
+        [returnBtn addTarget:self action:@selector(returnAction) forControlEvents:UIControlEventTouchUpInside];
+    }
+    
+    
     int w = (CGRectGetWidth(self.frame)-2) / 3;
-    int h = (CGRectGetHeight(self.frame)-3) / 4;
+    int h = (CGRectGetHeight(self.frame)-3 - topTitleH) / 4;
     
     int row = 4;
     int col = 3;
@@ -64,10 +117,10 @@
             }
             if (i == (row - 1) )
             {
-                subH = CGRectGetHeight(self.frame) - 3 * margin - 3 * h;
+                subH = CGRectGetHeight(self.frame) - topTitleH - 4 * margin - 3 * h;
             }
             
-            CGRect rect = CGRectMake(j*margin + j * w, i*margin + i*h, subW, subH);
+            CGRect rect = CGRectMake(j*margin + j * w, topTitleH + (i+1) * margin + i * h, subW, subH);
             
             CSCKeyBoardButton *btn = [[CSCKeyBoardButton alloc]initWithFrame:rect];
             
@@ -81,7 +134,7 @@
             
 //            btn.backgroundColor = [UIColor whiteColor];
             
-            btn.backgroundColor = [UIColor colorWithRed:1. green:1. blue:1. alpha:0.6];
+            btn.backgroundColor = [UIColor colorWithRed:1. green:1. blue:1. alpha:1.0];
             
             [btn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
             
@@ -95,8 +148,7 @@
             }
             
             if ([strTitle isEqualToString:@"Del"])
-            {
-                
+            {                
                 UIImage *img = [UIImage imageNamed:@"CSCKeyBoard.bundle/CSC_keyboard_back"];
                 
                 UIImage *src = [self createImageWithColor:btn.backgroundColor size:btn.frame.size];
@@ -107,15 +159,18 @@
                 
                 [btn setTitle:@"" forState:UIControlStateNormal];
             }
-            
             [self addSubview:btn];
-            
-            
         }
     }
-    
-    self.backgroundColor = [UIColor clearColor];
 }
+
+
+- (void)returnAction
+{
+  //  [self.responder becomeFirstResponder];
+    [self.responder resignFirstResponder];
+}
+
 
 - (UIImage*) createImageWithColor: (UIColor*) color size:(CGSize)size
 {
@@ -154,6 +209,21 @@
     }
 }
 
+
+- (UITextField *)responder{
+    //    if (!_responder) {  // 防止多个输入框采用同一个inputview
+    UIWindow *keyWindow = [[UIApplication sharedApplication] keyWindow];
+    UIView *firstResponder = [keyWindow valueForKey:@"firstResponder"];
+    _responder = (UITextField *)firstResponder;
+    //    }
+    return _responder;
+}
+
+- (void)deleteBtnClick{
+    if (self.responder.text.length) {
+        self.responder.text = [self.responder.text substringToIndex:self.responder.text.length-1];
+    }
+}
 
 @end
 

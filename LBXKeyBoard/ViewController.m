@@ -10,6 +10,8 @@
 #import "CSCDigitalKeyBoardView.h"
 
 @interface ViewController ()
+@property (weak, nonatomic) IBOutlet UITextField *textfield1;
+@property (weak, nonatomic) IBOutlet UITextField *textfield2;
 
 @end
 
@@ -20,17 +22,34 @@
     // Do any additional setup after loading the view, typically from a nib.
     
     
-    self.view.backgroundColor = [UIColor lightGrayColor];
+    self.view.backgroundColor = [UIColor whiteColor];
     
-    CSCDigitalKeyBoardView *kv = [[CSCDigitalKeyBoardView alloc]initWithFrame:CGRectMake(0, self.view.frame.size.height - 216, self.view.frame.size.width, 216)];
     
-    [self.view addSubview:kv];
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]init];
+    
+    [tap addTarget:self action:@selector(tapAction)];
+    [self.view addGestureRecognizer:tap];
+    
+  
+    
+    CSCDigitalKeyBoardView *kv = [[CSCDigitalKeyBoardView alloc]initWithBoardViewHead:NO];
+    
+    
+    _textfield1.inputView = kv;
+    
+    _textfield2.inputView = kv;
+    
+ 
+    
     
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+
+- (void)tapAction
+{
+    [_textfield1 resignFirstResponder];
+    [_textfield2 resignFirstResponder];
 }
+
 
 @end

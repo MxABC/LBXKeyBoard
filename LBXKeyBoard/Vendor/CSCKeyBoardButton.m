@@ -8,6 +8,13 @@
 
 #import "CSCKeyBoardButton.h"
 
+
+
+@interface CSCKeyBoardButton()
+
+@property (nonatomic, strong) UIColor *colorBack;
+@end
+
 @implementation CSCKeyBoardButton
 
 /*
@@ -28,4 +35,27 @@
     return self;
 }
 
+
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
+{
+    self.colorBack = self.backgroundColor;
+    
+    self.backgroundColor = [UIColor lightGrayColor];
+}
+
+
+- (void)touchesCancelled:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
+{
+    self.backgroundColor = self.colorBack;
+}
+
+- (void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
+{
+    self.backgroundColor = self.colorBack;
+}
+
+
 @end
+
+
+

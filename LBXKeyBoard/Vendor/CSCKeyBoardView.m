@@ -7,25 +7,19 @@
 //
 
 #import "CSCKeyBoardView.h"
-
+#import "CSCDigitalKeyBoardView.h"
 
 
 @interface CSCKeyBoardView()
 
-@property (nonatomic,assign) CSCKeyBoardType keyboardType;
+@property (nonatomic, assign) CSCKeyBoardType keyboardType;
 @property (nonatomic, weak) UITextField *responder;
 
 @end
 
 @implementation CSCKeyBoardView
 
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect {
-    // Drawing code
-}
-*/
+
 
 - (id)init
 {
@@ -33,6 +27,9 @@
         
         self.keyboardType = CSCKeyBoardType_Money;
     }
+    
+    [self __init];
+    
     return self;
 }
 
@@ -44,10 +41,13 @@
     
     self.keyboardType = boardType;
     
+    
     if (self = [super initWithFrame:frame])
     {
         
     }
+    
+    [self __init];
     
     return self;
 }
@@ -58,13 +58,13 @@
         
          self.keyboardType = CSCKeyBoardType_Money;
     }
-    
+    [self __init];
     return self;
 }
 
 - (void) __init
 {
-    //根据对应键盘，显示不同键盘效果。
+    
 }
 
 - (UITextField *)responder{
@@ -83,3 +83,6 @@
 }
 
 @end
+
+
+
