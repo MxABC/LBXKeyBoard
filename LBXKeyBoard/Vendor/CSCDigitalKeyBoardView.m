@@ -73,11 +73,14 @@
 
 - (void)__initButtons
 {
+    self.userInteractionEnabled = YES;
+    
     self.backgroundColor = [UIColor colorWithRed:200/255. green:200/255. blue:200/255. alpha:1.0];
     
     UIView *topView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.frame), topTitleH+1)];
     [self addSubview:topView];
     topView.backgroundColor = [UIColor colorWithRed:247/255. green:247/255. blue:247/255. alpha:1.0];
+    topView.userInteractionEnabled = YES;
     
     UIView *line = [[UIView alloc]initWithFrame:CGRectMake(0, 0, CGRectGetWidth(topView.frame), 1)];
     [topView addSubview:line];
@@ -123,7 +126,7 @@
             CGRect rect = CGRectMake(j*margin + j * w, topTitleH + (i+1) * margin + i * h, subW, subH);
             
             CSCKeyBoardButton *btn = [[CSCKeyBoardButton alloc]initWithFrame:rect];
-            
+           
             
             int pos = i * col + j;
             
@@ -136,11 +139,13 @@
             
             btn.backgroundColor = [UIColor colorWithRed:1. green:1. blue:1. alpha:1.0];
             
+            [btn setBackgroundImage:[self ColortoImage:[UIColor lightGrayColor]] forState:UIControlStateHighlighted];
+            
             [btn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
             
             btn.titleLabel.font = [UIFont systemFontOfSize:26];
             
-            [btn addTarget:self action:@selector(btnAction:) forControlEvents:UIControlEventTouchUpInside];
+            
             
             if ([strTitle isEqualToString:@"·"] || [strTitle isEqualToString:@"Del"] )
             {
@@ -160,10 +165,17 @@
                 [btn setTitle:@"" forState:UIControlStateNormal];
             }
             [self addSubview:btn];
+            
+            [btn addTarget:self action:@selector(btnAction:) forControlEvents:UIControlEventTouchUpInside];
+            
         }
     }
 }
 
+//- (void)btnAction:(UIButton*)btn
+//{
+//    NSLog(@"btn tag:%ld",btn.tag);
+//}
 
 - (void)returnAction
 {
@@ -196,16 +208,30 @@
     return resultingImage;
 }
 
+- (void)btnActionTest
+{
+    NSLog(@"test");
+}
+
 - (void)btnAction:(CSCKeyBoardButton*)btn
 {
     NSLog(@"%@",btn.str);
     if ([btn.str isEqualToString:@"·"])
     {
         NSLog(@"%@.",btn.str);
+        
+        self.responder.text = [NSString stringWithFormat:@"%@.",self.responder.text];
+        
     }
     else if ([btn.str isEqualToString:@"Del"])
     {
         NSLog(@"back");
+        
+        [self deleteBtnClick];
+    }
+    else
+    {
+        self.responder.text = [NSString stringWithFormat:@"%@%@",self.responder.text,btn.str];
     }
 }
 
@@ -224,6 +250,23 @@
         self.responder.text = [self.responder.text substringToIndex:self.responder.text.length-1];
     }
 }
+
+
+- (UIImage *) ColortoImage:(UIColor*)color
+{
+    CGRect rect=CGRectMake(0.0f, 0.0f, 1.0f, 1.0f);
+    UIGraphicsBeginImageContext(rect.size);
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    CGContextSetFillColorWithColor(context, [color CGColor]);
+    CGContextFillRect(context, rect);
+    
+    UIImage *theImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    return theImage;
+}
+
+
 
 @end
 

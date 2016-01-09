@@ -36,23 +36,24 @@
 }
 
 
-- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
-{
-    self.colorBack = self.backgroundColor;
-    
-    self.backgroundColor = [UIColor lightGrayColor];
-}
-
-
-- (void)touchesCancelled:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
-{
-    self.backgroundColor = self.colorBack;
-}
-
-- (void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
-{
-    self.backgroundColor = self.colorBack;
-}
+//会使 UIControlEventTouchXXX  失效
+//- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
+//{
+//    self.colorBack = self.backgroundColor;
+//    
+//    self.backgroundColor = [UIColor lightGrayColor];
+//}
+//
+//
+//- (void)touchesCancelled:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
+//{
+//    self.backgroundColor = self.colorBack;
+//}
+//
+//- (void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
+//{
+//    self.backgroundColor = self.colorBack;
+//}
 
 
 @end

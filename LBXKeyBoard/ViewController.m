@@ -21,9 +21,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     
-    
     self.view.backgroundColor = [UIColor whiteColor];
-    
     
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]init];
     
@@ -32,15 +30,12 @@
     
   
     
-    CSCDigitalKeyBoardView *kv = [[CSCDigitalKeyBoardView alloc]initWithBoardViewHead:NO];
+    CSCDigitalKeyBoardView *kv = [[CSCDigitalKeyBoardView alloc]initWithBoardViewHead:YES];
     
     
     _textfield1.inputView = kv;
     
     _textfield2.inputView = kv;
-    
- 
-    
     
 }
 
